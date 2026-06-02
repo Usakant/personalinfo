@@ -1,6 +1,6 @@
 package com.personalinfo.controller;
 
-import com.personalinfo.entity.Person;
+import com.personalinfo.entity.PersonalInfo;
 import com.personalinfo.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,34 +19,34 @@ public class PersonController {
     private PersonService personService;
 
     @PostMapping
-    public ResponseEntity<Person> createPerson(@RequestBody Person person) {
-        Person savedPerson = personService.savePerson(person);
+    public ResponseEntity<PersonalInfo> createPerson(@RequestBody PersonalInfo person) {
+        PersonalInfo savedPerson = personService.savePerson(person);
         return new ResponseEntity<>(savedPerson, HttpStatus.CREATED);
     }
 
     @GetMapping
-    public ResponseEntity<List<Person>> getAllPersons() {
-        List<Person> persons = personService.getAllPersons();
+    public ResponseEntity<List<PersonalInfo>> getAllPersons() {
+        List<PersonalInfo> persons = personService.getAllPersons();
         return new ResponseEntity<>(persons, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Person> getPersonById(@PathVariable Long id) {
-        Optional<Person> person = personService.getPersonById(id);
+    public ResponseEntity<PersonalInfo> getPersonById(@PathVariable Long id) {
+        Optional<PersonalInfo> person = personService.getPersonById(id);
         return person.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @GetMapping("/email/{email}")
-    public ResponseEntity<Person> getPersonByEmail(@PathVariable String email) {
-        Optional<Person> person = personService.getPersonByEmail(email);
+    public ResponseEntity<PersonalInfo> getPersonByEmail(@PathVariable String email) {
+        Optional<PersonalInfo> person = personService.getPersonByEmail(email);
         return person.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Person> updatePerson(@PathVariable Long id, @RequestBody Person personDetails) {
-        Person updatedPerson = personService.updatePerson(id, personDetails);
+    public ResponseEntity<PersonalInfo> updatePerson(@PathVariable Long id, @RequestBody PersonalInfo personDetails) {
+        PersonalInfo updatedPerson = personService.updatePerson(id, personDetails);
         if (updatedPerson != null) {
             return new ResponseEntity<>(updatedPerson, HttpStatus.OK);
         }

@@ -1,6 +1,6 @@
 package com.personalinfo.service;
 
-import com.personalinfo.entity.Person;
+import com.personalinfo.entity.PersonalInfo;
 import com.personalinfo.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,26 +14,26 @@ public class PersonService {
     @Autowired
     private PersonRepository personRepository;
 
-    public Person savePerson(Person person) {
+    public PersonalInfo savePerson(PersonalInfo person) {
         return personRepository.save(person);
     }
 
-    public List<Person> getAllPersons() {
+    public List<PersonalInfo> getAllPersons() {
         return personRepository.findAll();
     }
 
-    public Optional<Person> getPersonById(Long id) {
+    public Optional<PersonalInfo> getPersonById(Long id) {
         return personRepository.findById(id);
     }
 
-    public Optional<Person> getPersonByEmail(String email) {
+    public Optional<PersonalInfo> getPersonByEmail(String email) {
         return personRepository.findByEmail(email);
     }
 
-    public Person updatePerson(Long id, Person personDetails) {
-        Optional<Person> optionalPerson = personRepository.findById(id);
+    public PersonalInfo updatePerson(Long id, PersonalInfo personDetails) {
+        Optional<PersonalInfo> optionalPerson = personRepository.findById(id);
         if (optionalPerson.isPresent()) {
-            Person person = optionalPerson.get();
+            PersonalInfo person = optionalPerson.get();
             person.setFirstName(personDetails.getFirstName());
             person.setLastName(personDetails.getLastName());
             person.setEmail(personDetails.getEmail());
