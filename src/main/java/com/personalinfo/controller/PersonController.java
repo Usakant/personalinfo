@@ -2,6 +2,9 @@ package com.personalinfo.controller;
 
 import com.personalinfo.entity.PersonalInfo;
 import com.personalinfo.service.PersonService;
+
+import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/persons")
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -20,7 +24,9 @@ public class PersonController {
 
     @PostMapping
     public ResponseEntity<PersonalInfo> createPerson(@RequestBody PersonalInfo person) {
+        log.info("Application Started TO save the Personal Information");
         PersonalInfo savedPerson = personService.savePerson(person);
+        log.info("Suucessfuly stored the personal information");
         return new ResponseEntity<>(savedPerson, HttpStatus.CREATED);
     }
 

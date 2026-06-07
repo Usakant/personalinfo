@@ -1,5 +1,7 @@
 package com.personalinfo.entity;
 
+import com.personalinfo.validation.PhoneNumberValidate;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,7 +15,6 @@ import lombok.NoArgsConstructor;
 public class PersonalInfo {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
@@ -22,9 +23,10 @@ public class PersonalInfo {
     @Column(nullable = false)
     private String lastName;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String email;
-
+    
+    @PhoneNumberValidate
     @Column(nullable = false)
     private String phoneNumber;
 

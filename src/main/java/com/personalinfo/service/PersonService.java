@@ -1,6 +1,7 @@
 package com.personalinfo.service;
 
 import com.personalinfo.entity.PersonalInfo;
+import com.personalinfo.exception.PersonalInfoAllReadyExistException;
 import com.personalinfo.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,9 +14,14 @@ public class PersonService {
 
     @Autowired
     private PersonRepository personRepository;
-
+    
     public PersonalInfo savePerson(PersonalInfo person) {
-        return personRepository.save(person);
+        Optional<PersonalInfo> response = personRepository.findById(person.getId());
+        if(!response.isPresent()){
+            return personRepository.save(person);
+        }else{
+            throw new PersonalInfoAllReadyExistException("person details exist");
+        }
     }
 
     public List<PersonalInfo> getAllPersons() {
